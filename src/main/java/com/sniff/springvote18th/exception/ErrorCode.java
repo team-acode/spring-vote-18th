@@ -10,7 +10,9 @@ public enum ErrorCode {
     LOGIN_ID_DUPLICATED(HttpStatus.CONFLICT, ""),
     EMAIL_DUPLICATED(HttpStatus.CONFLICT, ""),
     ID_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
-    INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, "");
+    INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, ""),
+    TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
+    ALREADY_VOTED(HttpStatus.CONFLICT, "");
 
     private HttpStatus httpStatus;
     private String message;
