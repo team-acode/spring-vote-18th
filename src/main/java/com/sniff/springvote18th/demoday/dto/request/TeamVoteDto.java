@@ -4,5 +4,5 @@ import lombok.Getter;
 
 @Getter
 public class TeamVoteDto {
-    private Long teamId;
+    private String teamName;
 }
