@@ -9,7 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
 public class TeamDto {
-    private Long teamId;
     private String teamName;
     private String description;
     private int count;
@@ -18,7 +17,6 @@ public class TeamDto {
 
     @Builder
     public TeamDto(Team team) {
-        this.teamId = team.getId();
         this.teamName = team.getTeamName().name();
         this.description = team.getDescription();
         this.count = team.getCount();
