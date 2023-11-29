@@ -1,13 +1,11 @@
 package com.sniff.springvote18th.demoday.dto.response;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.util.List;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class DemoDayResultDto {
     private List<TeamDto> teamList;
 

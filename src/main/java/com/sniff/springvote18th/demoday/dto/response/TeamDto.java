@@ -1,13 +1,11 @@
 package com.sniff.springvote18th.demoday.dto.response;
 
 import com.sniff.springvote18th.domain.Team;
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
 public class TeamDto {
     private String teamName;
     private String description;
