@@ -55,6 +55,7 @@ public class UserService {
                 .name(signUpDto.getName())
                 .part(Part.valueOf(signUpDto.getPart()))
                 .teamName(TeamName.valueOf(signUpDto.getTeamName()))
+                .role(Role.USER)
                 .build());
 
         return ResponseEntity.status(HttpStatus.CREATED).build();
