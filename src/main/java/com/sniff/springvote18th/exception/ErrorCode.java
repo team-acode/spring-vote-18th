@@ -11,6 +11,7 @@ public enum ErrorCode {
     EMAIL_DUPLICATED(HttpStatus.CONFLICT, ""),
     ID_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, ""),
+    INVALID_VOTE(HttpStatus.UNAUTHORIZED, ""),
     TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
     ALREADY_VOTED(HttpStatus.CONFLICT, "");
 
