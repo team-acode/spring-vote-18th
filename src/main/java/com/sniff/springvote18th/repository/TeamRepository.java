@@ -13,7 +13,7 @@ import java.util.Optional;
 
 @Repository
 public interface TeamRepository extends JpaRepository<Team, Long> {
-    @Query("SELECT t.id FROM Team t ORDER BY t.count DESC")
+    @Query("SELECT t FROM Team t ORDER BY t.count DESC")
     List<Team> getTeamList();
 
     @Modifying
