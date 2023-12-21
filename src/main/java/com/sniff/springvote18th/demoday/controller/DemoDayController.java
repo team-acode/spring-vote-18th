@@ -15,17 +15,17 @@ import org.springframework.web.bind.annotation.*;
 public class DemoDayController {
     private final DemoDayService demoDayService;
 
-    @GetMapping("/vote")
+    @GetMapping("/votes")
     public DemoDayResultDto getTeamList() {
         return demoDayService.getTeamList();
     }
 
-    @PostMapping("/vote")
+    @PostMapping("/votes")
     public ResponseEntity<Void> demoDayVote(@RequestBody TeamVoteDto teamVoteDto, @AuthenticationPrincipal User user) {
         return demoDayService.demoDayVote(teamVoteDto, user);
     }
 
-    @GetMapping("/result")
+    @GetMapping("/results")
     public DemoDayResultDto getDemoDayVoteResult() {
         return demoDayService.getTeamList();
     }
