@@ -74,11 +74,6 @@ public class UserService {
         //토큰 발행
         String accessToken = jwtTokenProvider.createAccessToken(loginDto.getLoginId(), Role.USER.name());
 
-        return LoginResponseDto.builder()
-                .teamName(user.getTeamName().name())
-                .part(user.getPart().name())
-                .name(user.getName())
-                .accessToken(accessToken)
-                .build();
+        return new LoginResponseDto(user, accessToken);
     }
 }
