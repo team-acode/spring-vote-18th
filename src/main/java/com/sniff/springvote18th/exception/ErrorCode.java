@@ -14,7 +14,8 @@ public enum ErrorCode {
     INVALID_VOTE(HttpStatus.UNAUTHORIZED, ""),
     TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
     CANDIDATE_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
-    ALREADY_VOTED(HttpStatus.CONFLICT, "");
+    ALREADY_VOTED(HttpStatus.CONFLICT, ""),
+    INVALID_TOKEN(HttpStatus.UNAUTHORIZED, "");
 
     private HttpStatus httpStatus;
     private String message;

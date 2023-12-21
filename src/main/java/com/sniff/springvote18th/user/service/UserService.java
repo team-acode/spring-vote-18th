@@ -1,6 +1,7 @@
 package com.sniff.springvote18th.user.service;
 
 import com.sniff.springvote18th.config.JwtTokenProvider;
+import com.sniff.springvote18th.config.redis.RedisService;
 import com.sniff.springvote18th.domain.Part;
 import com.sniff.springvote18th.domain.Role;
 import com.sniff.springvote18th.domain.TeamName;
@@ -27,6 +28,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final BCryptPasswordEncoder passwordEncoder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final RedisService redisService;
 
     public ResponseEntity<Void> checkLoginId(LoginIdDto loginIdDto) {
         userRepository.findByLoginId(loginIdDto.getLoginId())
@@ -75,5 +77,12 @@ public class UserService {
         String accessToken = jwtTokenProvider.createAccessToken(loginDto.getLoginId(), Role.USER.name());
 
         return new LoginResponseDto(user, accessToken);
+    }
+
+    public ResponseEntity<Void> logout(String token) {
+        // access token의 유효시간 가져와서 블랙리스트 등록
+        Long expirationTime = jwtTokenProvider.getExpiration(token);
+        redisService.setBlackList(token, "logout", expirationTime / 1000);
+        return ResponseEntity.ok().build();
     }
 }
