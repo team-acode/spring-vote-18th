@@ -1,10 +1,13 @@
 package com.sniff.springvote18th.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
+import lombok.*;
 
 @Entity
 @Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@Builder
 public class CandidateVote {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

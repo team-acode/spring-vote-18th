@@ -13,6 +13,7 @@ public enum ErrorCode {
     INVALID_PASSWORD(HttpStatus.UNAUTHORIZED, ""),
     INVALID_VOTE(HttpStatus.UNAUTHORIZED, ""),
     TEAM_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
+    CANDIDATE_NOT_FOUND(HttpStatus.NOT_FOUND, ""),
     ALREADY_VOTED(HttpStatus.CONFLICT, "");
 
     private HttpStatus httpStatus;
