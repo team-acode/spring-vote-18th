@@ -29,6 +29,8 @@ public class SecurityConfig {
         return http
                 .httpBasic(HttpBasicConfigurer::disable)
                 .csrf(AbstractHttpConfigurer::disable)
+                .httpBasic(httpBasic -> httpBasic.disable()) // http 기본 인증 비활성화
+                .formLogin(formLogin -> formLogin.disable()) // 사용자 지정 로그인 로직 구현
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // Preflight Request 허용해주기
