@@ -1,12 +1,14 @@
 package com.sniff.springvote18th.config;
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
+import com.sniff.springvote18th.config.redis.RedisService;
+import com.sniff.springvote18th.exception.CustomException;
+import com.sniff.springvote18th.exception.ErrorCode;
+import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +20,7 @@ import javax.crypto.SecretKey;
 import java.util.Base64;
 import java.util.Date;
 
+@Slf4j
 @Component
 @RequiredArgsConstructor
 public class JwtTokenProvider {
@@ -29,6 +32,8 @@ public class JwtTokenProvider {
     private long tokenValidTime;
 
     private final CustomUserDetailsService userDetailsService;
+
+    private final RedisService redisService;
 
     // 객체 초기화, secretKey -> Base64로 인코딩
     @PostConstruct //스프링이 빈 생성 후, 자동으로 호출
@@ -58,6 +63,30 @@ public class JwtTokenProvider {
     }
 
     //Token 유효성 - 만료 여부 검증
+    // redis 로직 추가하기!!! - 블랙리스트에 있는지
+    public boolean validateAccessToken(String token) {
+        try {
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
+            if (redisService.hasTokenInBlackList(token)) {
+                throw new CustomException(ErrorCode.INVALID_TOKEN, "로그아웃된 ACCESS TOKEN");
+            }
+            return true;
+        } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
+            log.info(e.toString());
+            log.info("잘못된 JWT 서명");
+        } catch (ExpiredJwtException e) {
+            log.info(e.toString());
+            log.info("만료된 JWT 토큰");
+        } catch (UnsupportedJwtException e) {
+            log.info(e.toString());
+            log.info("지원되지 않는 JWT 토큰");
+        } catch (IllegalArgumentException e) {
+            log.info(e.toString());
+            log.info("잘못된 JWT 토큰");
+        }
+        return false;
+    }
+
     public boolean validateToken(String token) {
         //Token 만료 시간 또는 null 반환
         Date expiration = Jwts.parserBuilder()
@@ -87,5 +116,17 @@ public class JwtTokenProvider {
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 
+    // TOKEN의 남은 유효시간 찾기
+    public Long getExpiration(String token) {
+        Date expiration = Jwts.parserBuilder()
+                .setSigningKey(key)
+                .build()
+                .parseClaimsJws(token)
+                .getBody()
+                .getExpiration();
+        long now = new Date().getTime();
+
+        return expiration.getTime() - now;
+    }
 
 }
