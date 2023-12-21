@@ -78,6 +78,7 @@ public class SecurityConfig {
         configuration.addAllowedOrigin("http://localhost:3000");
         configuration.addAllowedOrigin("https://react-vote-18th.vercel.app/");
         configuration.addAllowedOrigin("https://react-vote-18th.vercel.app");
+        configuration.addAllowedOrigin("http://52.79.115.164:8080");
         configuration.addAllowedMethod("*");
         configuration.addAllowedHeader("*");
         configuration.setAllowCredentials(true);
