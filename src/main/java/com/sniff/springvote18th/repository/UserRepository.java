@@ -18,4 +18,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Modifying
     @Query("UPDATE User u SET u.isTeamVoted = true WHERE u.id = :userId")
     void updateIsTeamVoted(@Param("userId") Long userId);
+
+    @Modifying
+    @Query("UPDATE User u SET u.isCandidateVoted = true WHERE u.id = :userId")
+    void updateIsCandidateVoted(@Param("userId") Long userId);
 }
