@@ -65,12 +65,12 @@ public class JwtTokenProvider {
     //Token 유효성 - 만료 여부 검증
     // redis 로직 추가하기!!! - 블랙리스트에 있는지
     public boolean validateAccessToken(String token) {
-        System.out.println("[JwtTokenProvider] validateAccessToken 1. 토큰 들어옴 ");
+//        System.out.println("[JwtTokenProvider] validateAccessToken 1. 토큰 들어옴 ");
         try {
-            System.out.println("[JwtTokenProvider] validateAccessToken 2. try문");
+//            System.out.println("[JwtTokenProvider] validateAccessToken 2. try문");
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             if (redisService.hasTokenInBlackList(token)) {
-                System.out.println("[JwtTokenProvider] validateAccessToken 3. 레디스에 있는 거 확인");
+                System.out.println("[JwtTokenProvider] validateAccessToken 레디스에 있는 토큰");
 //                throw new CustomException(ErrorCode.INVALID_TOKEN, "로그아웃된 ACCESS TOKEN");
                 return false;
             }
