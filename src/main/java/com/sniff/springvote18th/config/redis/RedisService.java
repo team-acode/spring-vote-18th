@@ -26,7 +26,7 @@ public class RedisService {
         return redisBlackListTemplate.opsForValue().get(token);
     }
 
-    public boolean hasTokenInBlackList(String token) {
+    public Boolean hasTokenInBlackList(String token) {
         return Boolean.TRUE.equals(redisBlackListTemplate.hasKey(token));
     }
 
