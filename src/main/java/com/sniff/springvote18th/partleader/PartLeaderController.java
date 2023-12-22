@@ -15,12 +15,12 @@ public class PartLeaderController {
 
     private final PartLeaderService partLeaderService;
 
-    @GetMapping("/vote")
+    @GetMapping("/votes")
     public CandidateResponseDto getCandidateList(@RequestParam String part){
         return partLeaderService.getCandidateResult(part);
     }
 
-    @PostMapping("/vote")
+    @PostMapping("/votes")
     public ResponseEntity votePartLeader(@RequestParam String part, @RequestBody PartLeaderRequestDto dto, @AuthenticationPrincipal User user){
         return partLeaderService.votePartLeader(part, dto, user);
     }
