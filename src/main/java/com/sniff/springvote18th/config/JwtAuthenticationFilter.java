@@ -22,8 +22,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         String token = jwtTokenProvider.resolveToken(request);
 
         // 토큰 존재 여부 + 유효성 확인
-        if ( token != null && !jwtTokenProvider.validateToken(token)) {
+        if ( token != null && jwtTokenProvider.validateAccessToken(token)) {
             // token이 존재하고 && 유효하면 (만료되지 않았으면 isExpired가 false)
+            System.out.println("[JwtAuthenticationFilter] 토큰 확인하는 부분");
             Authentication authentication = jwtTokenProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
