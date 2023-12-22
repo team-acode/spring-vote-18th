@@ -71,7 +71,8 @@ public class JwtTokenProvider {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             if (redisService.hasTokenInBlackList(token)) {
                 System.out.println("[JwtTokenProvider] validateAccessToken 3. 레디스에 있는 거 확인");
-                throw new CustomException(ErrorCode.INVALID_TOKEN, "로그아웃된 ACCESS TOKEN");
+//                throw new CustomException(ErrorCode.INVALID_TOKEN, "로그아웃된 ACCESS TOKEN");
+                return false;
             }
             return true;
         } catch (io.jsonwebtoken.security.SecurityException | MalformedJwtException e) {
